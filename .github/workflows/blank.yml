@@ -1,36 +1,137 @@
-# This is a basic workflow to help you get started with Actions
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/isolation#"
+     xml:base="http://example.org/isolation"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 
-name: CI
+    <owl:Ontology rdf:about="http://example.org/isolation"/>
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    <!-- ========================= -->
+    <!-- CLASSES -->
+    <!-- ========================= -->
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    <owl:Class rdf:about="#Domain"/>
+    <owl:Class rdf:about="#IsolationMechanism"/>
+    <owl:Class rdf:about="#MeansMethod"/>
+    <owl:Class rdf:about="#CapabilityDependency"/>
+    <owl:Class rdf:about="#OperationalEffect"/>
+    <owl:Class rdf:about="#Outcome"/>
+    <owl:Class rdf:about="#IllustrativeExample"/>
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    <!-- Subclasses -->
+    <owl:Class rdf:about="#PhysicalDisconnection">
+        <rdfs:subClassOf rdf:resource="#IsolationMechanism"/>
+    </owl:Class>
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+    <owl:Class rdf:about="#FunctionalDenial">
+        <rdfs:subClassOf rdf:resource="#IsolationMechanism"/>
+    </owl:Class>
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    <owl:Class rdf:about="#InformationalSeparation">
+        <rdfs:subClassOf rdf:resource="#IsolationMechanism"/>
+    </owl:Class>
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    <owl:Class rdf:about="#CognitiveDislocation">
+        <rdfs:subClassOf rdf:resource="#IsolationMechanism"/>
+    </owl:Class>
+
+    <!-- ========================= -->
+    <!-- OBJECT PROPERTIES -->
+    <!-- ========================= -->
+
+    <owl:ObjectProperty rdf:about="#usesMethod">
+        <rdfs:domain rdf:resource="#Domain"/>
+        <rdfs:range rdf:resource="#MeansMethod"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#targetsCapability">
+        <rdfs:domain rdf:resource="#MeansMethod"/>
+        <rdfs:range rdf:resource="#CapabilityDependency"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#producesEffect">
+        <rdfs:domain rdf:resource="#MeansMethod"/>
+        <rdfs:range rdf:resource="#OperationalEffect"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#resultsIn">
+        <rdfs:domain rdf:resource="#OperationalEffect"/>
+        <rdfs:range rdf:resource="#Outcome"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#hasIsolationMechanism">
+        <rdfs:domain rdf:resource="#Domain"/>
+        <rdfs:range rdf:resource="#IsolationMechanism"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#illustratedBy">
+        <rdfs:domain rdf:resource="#Domain"/>
+        <rdfs:range rdf:resource="#IllustrativeExample"/>
+    </owl:ObjectProperty>
+
+    <!-- ========================= -->
+    <!-- DATA PROPERTY -->
+    <!-- ========================= -->
+
+    <owl:DatatypeProperty rdf:about="#description">
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <!-- ========================= -->
+    <!-- DOMAIN INDIVIDUALS -->
+    <!-- ========================= -->
+
+    <!-- Domains -->
+    <owl:NamedIndividual rdf:about="#Land">
+        <rdf:type rdf:resource="#Domain"/>
+        <hasIsolationMechanism rdf:resource="#PhysicalDisconnection"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Maritime">
+        <rdf:type rdf:resource="#Domain"/>
+        <hasIsolationMechanism rdf:resource="#PhysicalDisconnection"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Air">
+        <rdf:type rdf:resource="#Domain"/>
+        <hasIsolationMechanism rdf:resource="#FunctionalDenial"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Space">
+        <rdf:type rdf:resource="#Domain"/>
+        <hasIsolationMechanism rdf:resource="#FunctionalDenial"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Cyber">
+        <rdf:type rdf:resource="#Domain"/>
+        <hasIsolationMechanism rdf:resource="#FunctionalDenial"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Information">
+        <rdf:type rdf:resource="#Domain"/>
+        <hasIsolationMechanism rdf:resource="#InformationalSeparation"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#EMS">
+        <rdf:type rdf:resource="#Domain"/>
+        <hasIsolationMechanism rdf:resource="#FunctionalDenial"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Cognitive">
+        <rdf:type rdf:resource="#Domain"/>
+        <hasIsolationMechanism rdf:resource="#CognitiveDislocation"/>
+    </owl:NamedIndividual>
+
+    <!-- ========================= -->
+    <!-- EXAMPLE METHODS -->
+    <!-- ========================= -->
+
+    <owl:NamedIndividual rdf:about="#Encirclement">
+        <rdf:type rdf:resource="#MeansMethod"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#SATCOMJamming">
+        <rdf:
